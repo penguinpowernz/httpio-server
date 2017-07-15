@@ -1,0 +1,2 @@
+gom "gopkg.in/gin-gonic/gin.v1"
+gom "github.com/stianeikeland/go-rpio"
