@@ -1,9 +1,11 @@
 package main
 
 import (
-	"bitbucket.org/hamstar/remoteput"
-	rpio "github.com/stianeikeland/go-rpio"
 	"flag"
+	
+	"github.com/penguinpowernz/http-gpio-server/rest"
+	"github.com/penguinpowernz/http-gpio-server/rpi"
+	rpio "github.com/stianeikeland/go-rpio"
 )
 
 func main() {
@@ -17,16 +19,16 @@ func main() {
 	rpio.Open()
 	defer rpio.Close()
 
-	var outputs remoteput.Outputs
+	var outputs rpi.Outputs
 
 	if fake {
-		outputs = remoteput.NewFakeOutputs()
+		outputs = rpi.NewFakeOutputs()
 	} else {
-		outputs = remoteput.NewOutputs()
+		outputs = rpi.NewOutputs()
 	}
 
 	outputs.AllOff()
 
-	svr := remoteput.NewAPI(outputs)
+	svr := rest.NewAPI(outputs)
 	svr.Run(":" + port)
 }

@@ -1,7 +1,7 @@
-# HTTPIO Server
+# HTTP-GPIO Server
 
-Server implementation of the HTTPIO API specification, an open standard
-that describes a way of interfacing with an output module via a RESTful 
+Server implementation of the HTTP-GPIO API specification, an open standard
+that describes a way of interfacing with an output module via a RESTful
 HTTP API server.
 
 ## Methods
@@ -32,4 +32,3 @@ Turn on all outputs:
 
     PUT /outputs
     <- [{"index": 1, "position": 1 }, {"index": 2, "position": 1 }]
-

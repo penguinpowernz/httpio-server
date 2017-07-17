@@ -1,4 +1,4 @@
-package remoteput
+package rpi
 
 import (
 	"time"

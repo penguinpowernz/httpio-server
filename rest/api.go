@@ -1,12 +1,18 @@
-package remoteput
+package rest
 
 import (
 	"strconv"
 
+	"github.com/penguinpowernz/http-gpio-server/rpi"
 	"gopkg.in/gin-gonic/gin.v1"
 )
 
-func outputFromContext(outputs Outputs, c *gin.Context) (*Output, bool) {
+type outputs interface {
+	AllOff()
+	AllOn()
+}
+
+func outputFromContext(outputs rpi.Outputs, c *gin.Context) (*rpi.Output, bool) {
 	idx, err := strconv.Atoi(c.Param("idx"))
 	if err != nil {
 		c.AbortWithError(400, err)
@@ -23,12 +29,13 @@ func outputFromContext(outputs Outputs, c *gin.Context) (*Output, bool) {
 	return o, true
 }
 
-func NewAPI(outputs Outputs) *gin.Engine {
+// NewAPI returns a new rest API running with the given outputs
+func NewAPI(outputs rpi.Outputs) *gin.Engine {
 	r := gin.New()
 
 	// Global middleware
 	r.Use(gin.Logger())
-	
+
 	r.GET("/outputs", func(c *gin.Context) {
 		c.JSON(200, outputs)
 	})
